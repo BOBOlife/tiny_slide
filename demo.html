@@ -10,7 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="lib/reset.css">
   <link rel="stylesheet" href="lib/reveal.css">
-  <link rel="stylesheet" href="lib/theme/black.css" id="theme">
   <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_2326259_olimfz50qd9.css">
   <link rel="stylesheet" href="css/main.css">
@@ -22,27 +21,87 @@
 <div class="menu">
   <span class="iconfont icon-close"></span>
   <div class="detail">
-    <div class="tab"><span class="iconfont icon-edit"></span>内容与编辑</div>
+    <div class="tab active"><span class="iconfont icon-edit"></span>内容与编辑</div>
     <div class="tab"><span class="iconfont icon-theme"></span>主题与特效</div>
     <div class="tab"><span class="iconfont icon-download"></span>下载PDF</div>
-    <div class="content">
+    <div class="content active">
       <div class="header">编辑</div>
       <div class="body editor">
-        <label>
-          <textarea ></textarea>
-        </label>
-        <button>保存</button>
+        <textarea></textarea>
+        <div>
+          <button class="button-save">保存</button>
+        </div>
       </div>
     </div>
     <div class="content">
-      <div class="header">主题</div>
-      <div class="body editor">
-        <p>主题特效</p>
+      <div class="header">主题特效</div>
+      <div class="body theme">
+        <h5>主题</h5>
+        <div class="themes">
+          <figure data-theme="beige">
+            <img src="./img/beige.png" alt="beige">
+            <figcaption>beige</figcaption>
+          </figure>
+          <figure data-theme="black">
+            <img src="./img/black.png" alt="black">
+            <figcaption>black</figcaption>
+          </figure>
+          <figure data-theme="blood">
+            <img src="./img/blood.png" alt="blood">
+            <figcaption>blood</figcaption>
+          </figure>
+          <figure data-theme="league">
+            <img src="./img/league.png" alt="league">
+            <figcaption>league</figcaption>
+          </figure>
+          <figure data-theme="moon">
+            <img src="./img/moon.png" alt="moon">
+            <figcaption>moon</figcaption>
+          </figure>
+          <figure data-theme="night">
+            <img src="./img/night.png" alt="night">
+            <figcaption>night</figcaption>
+          </figure>
+          <figure data-theme="serif">
+            <img src="./img/serif.png" alt="serif">
+            <figcaption>serif</figcaption>
+          </figure>
+          <figure data-theme="simple">
+            <img src="./img/simple.png" alt="simple">
+            <figcaption>simple</figcaption>
+          </figure>
+          <figure data-theme="sky">
+            <img src="./img/sky.png" alt="sky">
+            <figcaption>sky</figcaption>
+          </figure>
+          <figure data-theme="solarized">
+            <img src="./img/solarized.png" alt="solarized">
+            <figcaption>solarized</figcaption>
+          </figure>
+          <figure data-theme="white">
+            <img src="./img/white.png" alt="white">
+            <figcaption>white</figcaption>
+          </figure>
+        </div>
+        <h5>转场</h5>
+        <select class="transition">
+          <option value="slide">滑动</option>
+          <option value="fade">淡化</option>
+          <option value="convex">凸出</option>
+          <option value="concave">凹陷</option>
+          <option value="zoom">缩放</option>
+          <option value="none">无</option>
+        </select>
+        <h5>对齐</h5>
+        <select class="align">
+          <option value="center">居中</option>
+          <option value="left-top">左上</option>
+        </select>
       </div>
     </div>
     <div class="content">
       <div class="header">下载</div>
-      <div class="body editor">
+      <div class="body download">
         <p>下载PDF</p>
       </div>
     </div>
@@ -53,20 +112,11 @@
   </div>
 </div>
 <script src="lib/reveal.js"></script>
-<script src="js/main.js"></script>
 <script src="plugin/zoom/zoom.js"></script>
 <script src="plugin/notes/notes.js"></script>
 <script src="plugin/search/search.js"></script>
 <script src="plugin/markdown/markdown.js"></script>
 <script src="plugin/highlight/highlight.js"></script>
-<script>
-  Reveal.initialize({
-    controls: true,
-    progress: true,
-    center: true,
-    hash: true,
-    plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
-  })
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>

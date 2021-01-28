@@ -1,18 +1,14 @@
-/**
+/*
  * @Author: BOBOWang
  * @Description:
  * @Date: 2021/1/27
-*/
-const $ = (s) => document.querySelector(s)
-const $$ = (s) => document.querySelectorAll(s)
-const isMain = (str) => /^#{1,2}(?!#)/.test(str)
-const isSub = (str) => /^#{3}(?!#)/.test(str)
+ */
+const $ = s => document.querySelector(s)
+const $$ = s => document.querySelectorAll(s)
+const isMain = str => (/^#{1,2}(?!#)/).test(str)
+const isSub = str => (/^#{3}(?!#)/).test(str)
 const convert = (raw) => {
-  let arr = raw
-    .split(/\n(?=\s*#)/)
-    .filter((s) => s != '')
-    .map((s) => s.trim())
-
+  let arr = raw.split(/\n(?=\s*#{1,3}[^#])/).filter(s => s != '').map(s => s.trim())
   let html = ''
   for (let i = 0; i < arr.length; i++) {
     if (arr[i + 1] !== undefined) {
@@ -97,14 +93,13 @@ const Menu = {
     }
 
     this.$$tabs.forEach(
-      ($tab) =>
-        ($tab.onclick = () => {
-          this.$$tabs.forEach(($node) => $node.classList.remove('active'))
-          $tab.classList.add('active')
-          let index = [...this.$$tabs].indexOf($tab)
-          this.$$contents.forEach(($node) => $node.classList.remove('active'))
-          this.$$contents[index].classList.add('active')
-        })
+      $tab => $tab.onclick = () => {
+        this.$$tabs.forEach(($node) => $node.classList.remove('active'))
+        $tab.classList.add('active')
+        let index = [...this.$$tabs].indexOf($tab)
+        this.$$contents.forEach($node => $node.classList.remove('active'))
+        this.$$contents[index].classList.add('active')
+      }
     )
   },
 }
@@ -115,7 +110,7 @@ const Editor = {
     this.$editInput = $('.editor textarea')
     this.$saveBtn = $('.editor .button-save')
     this.$slideContainer = $('.slides')
-    this.markdown = localStorage.markdown || `# one slide`
+    this.markdown = localStorage.markdown || `# Hello World`
 
     this.bind()
     this.start()
@@ -147,10 +142,84 @@ const Editor = {
   },
 }
 
-const App = {
+
+const Theme = {
   init() {
-    [...arguments].forEach((Module) => Module.init())
+    this.$$figures = $$('.theme figure')
+    this.$transition = $('.theme .transition')
+    this.$align = $('.theme .align')
+    this.$reveal = $('.reveal')
+    this.bind()
+    this.loadTheme()
+
   },
+  bind() {
+    this.$$figures.forEach($figure => $figure.onclick = () => {
+      this.$$figures.forEach($item => $item.classList.remove('select'))
+      $figure.classList.add('select')
+      this.setTheme($figure.dataset.theme)
+    })
+    this.$transition.onchange = function () {
+      localStorage.transition = this.value
+      location.reload()
+    }
+    this.$align.onchange = function () {
+      localStorage.align = this.value
+      location.reload()
+    }
+  },
+  setTheme(theme) {
+    localStorage.theme = theme
+    location.reload()
+  },
+  loadTheme() {
+    let theme = localStorage.theme || 'beige'
+    let $link = document.createElement('link')
+    $link.rel = 'stylesheet'
+    $link.href = `lib/theme/${theme}.css`
+    document.head.appendChild($link)
+
+
+    Array.from(this.$$figures).find($figure => $figure.dataset.theme === theme).classList.add('select')
+    this.$transition.value = localStorage.transition || 'slide'
+    this.$align.value = localStorage.align || 'center'
+    this.$reveal.classList.add(this.$align.value)
+  }
 }
 
-App.init(Menu, Editor)
+const Print = {
+  init() {
+    this.$download = $('.download')
+    this.bind()
+    this.start()
+  },
+  bind() {
+    this.$download.addEventListener('click', () => {
+      let $link = document.createElement('a')
+      $link.setAttribute('target', '_blank')
+      $link.setAttribute('href', location.href.replace(/#\/.+/, '?print-pdf'))
+      $link.click()
+    })
+
+    window.onafterprint = () => window.close()
+  },
+  start() {
+    let link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    if (window.location.search.match(/print-pdf/gi)) {
+      link.href = 'css/print/pdf.css'
+      window.print()
+    } else {
+      link.href = 'css/print/paper.css'
+    }
+    document.head.appendChild(link)
+  }
+}
+
+const App = {
+  init() {
+    [...arguments].forEach(Module => Module.init())
+  },
+}
+App.init(Menu, Theme, Editor, Print)
