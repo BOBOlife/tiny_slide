@@ -129,8 +129,9 @@ const Editor = {
     Reveal.initialize({
       controls: true,
       progress: true,
-      center: true,
+      center: localStorage.align !== 'left-top',
       hash: true,
+      transition: localStorage.transition || 'slide',
       plugins: [
         RevealZoom,
         RevealNotes,
@@ -200,7 +201,6 @@ const Print = {
       $link.setAttribute('href', location.href.replace(/#\/.+/, '?print-pdf'))
       $link.click()
     })
-
     window.onafterprint = () => window.close()
   },
   start() {
