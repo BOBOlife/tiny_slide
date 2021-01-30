@@ -138,7 +138,7 @@ const Editor = {
         RevealSearch,
         RevealMarkdown,
         RevealHighlight,
-      ],
+      ]
     })
   },
 }
@@ -213,7 +213,7 @@ const Print = {
     } else {
       link.href = 'css/print/paper.css'
     }
-    document.head.appendChild(link)
+    document.head.append(link)
   }
 }
 
