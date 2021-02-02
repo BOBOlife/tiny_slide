@@ -28,10 +28,6 @@ button:hover {
 }
 
 
-
-
-
-
 /* Control */
 .control {
   position: fixed;
@@ -116,7 +112,7 @@ button:hover {
   background: #212a29;
   padding-bottom: 60px;
   font-size: 14px;
-  transform: translateX(calc(100% + 180px)); 
+  transform: translateX(calc(100% + 180px));
   overflow: scroll;
   transition: transform .3s;
 }
@@ -125,7 +121,7 @@ button:hover {
   transform: translateX(0)
 }
 
-.menu .content .header{
+.menu .content .header {
   font-size: 40px;
   padding: 20px;
   border-bottom: 1px solid #425351;
@@ -183,7 +179,7 @@ button:hover {
   cursor: pointer;
 }
 
-.menu .themes figure.select {
+.menu .themes figure.select, .menu .themes figure:hover {
   opacity: 1;
   border: 4px solid #fff;
 }
