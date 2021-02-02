@@ -118,7 +118,8 @@ button:hover {
 }
 
 .menu.open .content.active {
-  transform: translateX(0)
+  transform: translateX(0);
+  overflow-x: hidden;
 }
 
 .menu .content .header {

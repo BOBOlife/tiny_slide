@@ -239,13 +239,12 @@ const Theme = {
   },
 
   loadTheme() {
-    let theme = localStorage.theme || 'beige'
+    let theme = localStorage.theme || 'league'
     let $link = document.createElement('link')
     $link.rel = 'stylesheet'
     $link.href = `css/theme/${theme}.css`
     document.head.appendChild($link)
 
-    //$(`.theme figure[data-theme=${theme}]`)
     Array.from(this.$$figures).find($figure => $figure.dataset.theme === theme).classList.add('select')
     this.$transition.value = localStorage.transition || 'slide'
     this.$align.value = localStorage.align || 'center'
